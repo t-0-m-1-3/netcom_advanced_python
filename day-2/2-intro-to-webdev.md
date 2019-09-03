@@ -14,7 +14,8 @@ To begin, you'll need to answer these questions:
 
 Next, grab pen and paper and sketch out roughly how you want your site to look.
 For your first simple webpage, there's not much to sketch out
-(https://mdn.mozillademos.org/files/9239/website-drawing-scan.png)[link]
+
+![https://mdn.mozillademos.org/files/9239/website-drawing-scan.png]()
 
 ## Choosing your assets
 
@@ -75,7 +76,7 @@ Some general rules for file paths:
 * HTML is not a programming language; it is a markup language that defines the structure of your content. 
 * HTML consists of a series of **elements**, which you use to enclose, or wrap, different parts of the content to make it appear a certain way, or act a certain way
 
-(https://mdn.mozillademos.org/files/9347/grumpy-cat-small.png)[]
+![https://mdn.mozillademos.org/files/9347/grumpy-cat-small.png]()
 
 #### The main parts of our element are as follows:
 
@@ -87,7 +88,7 @@ Some general rules for file paths:
 
 #### Elements can also have attributes that look like the following:
 
-(https://mdn.mozillademos.org/files/9345/grumpy-cat-attribute-small.png)[]
+![https://mdn.mozillademos.org/files/9345/grumpy-cat-attribute-small.png]()
 
 * Attributes contain extra information about the element that you don't want to appear in the actual content. 
 
@@ -126,7 +127,7 @@ p {
 
 Let's look at the above CSS
 
-(https://mdn.mozillademos.org/files/9461/css-declaration-small.png)[]
+![https://mdn.mozillademos.org/files/9461/css-declaration-small.png]()
 
 * whole structure is called a **rule set**
 
