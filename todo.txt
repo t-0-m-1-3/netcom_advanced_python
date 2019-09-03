@@ -1,0 +1,9 @@
+pipenv
+virtualenv demo
+https://github.com/pypa/pipenv/blob/master/docs/advanced.rst
+
+README
+
+IDE 
+
+Setup and install stuff
