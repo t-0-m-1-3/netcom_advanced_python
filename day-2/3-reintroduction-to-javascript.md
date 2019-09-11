@@ -19,7 +19,7 @@
 
 ## Overview 
 
-*JavaScript is a multi-paradigm, dynamic language with types and operators, standard built-in objects, and methods. 
+* JavaScript is a multi-paradigm, dynamic language with types and operators, standard built-in objects, and methods. 
 * Its syntax is based on the Java and C languages — many structures from those languages apply to JavaScript as well.
 * JavaScript supports object-oriented programming with object prototypes, instead of classes (see more about prototypical inheritance and ES2015 classes). 
 * JavaScript also supports functional programming — because they are objects, functions may be stored in variables and passed around like any other object.
