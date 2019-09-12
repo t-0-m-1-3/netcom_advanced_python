@@ -1,8 +1,9 @@
-<!doctype html>
 <html>
-	 <body>
-
-	 <h1> Hello <b> {{ name }} <b/>! </h1>
-
-	 <body>
+<body>
+    {% if marks>50 %}
+       <h1> Your result is pass!</h1>
+    {% else %}
+       <h1>Your result is fail</h1>
+    {% endif %}
+ </body>
 </html>
