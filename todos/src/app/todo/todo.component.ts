@@ -16,12 +16,12 @@ export class TodoComponent implements OnInit {
 
   constructor(private todoService: TodoService, private route: ActivatedRoute) { }
 
-  getTodos(){
-    return this.todoService.get().then(todos => {
-      this.todos = todos;
-      this.activeTasks = this.todos.filter(todo => todo.isDone).length;
-    });
-  }
+getTodos(query = ''){
+  return this.todoService.get(query).then(todos => {
+    this.todos = todos;
+    this.activeTasks = this.todos.filter(todo => todo.isDone).length;
+  });
+}
 
 
 addTodo(){
@@ -46,7 +46,7 @@ destroyTodo(todo) {
   ngOnInit() {
 	    this.route.params.subscribe(params => {
       this.path = params['status'];
-      this.getTodos();
+      this.getTodos(this.path);
     });
   }
 }
