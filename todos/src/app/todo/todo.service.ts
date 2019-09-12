@@ -31,4 +31,11 @@ put(changed) {
     resolve(changed);
   });
 }
+delete(selected) {
+  return new Promise(resolve => {
+    const index = TODOS.findIndex(todo => todo === selected);
+    TODOS.splice(index, 1);
+    resolve(true);
+  });
+}
 }
