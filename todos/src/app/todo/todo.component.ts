@@ -43,6 +43,11 @@ destroyTodo(todo) {
     return this.getTodos();
   });
 }
+clearCompleted() {
+  this.todoService.deleteCompleted().then(() => {
+    return this.getTodos();
+  });
+}
   ngOnInit() {
 	    this.route.params.subscribe(params => {
       this.path = params['status'];
