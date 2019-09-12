@@ -36,7 +36,11 @@ updateTodo(todo, newValue) {
     return this.getTodos();
   });
   }
-
+destroyTodo(todo) {
+  this.todoService.delete(todo).then(() => {
+    return this.getTodos();
+  });
+}
   ngOnInit() {
     this.getTodos();
   }
