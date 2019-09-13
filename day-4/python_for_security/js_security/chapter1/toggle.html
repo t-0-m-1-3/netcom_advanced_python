@@ -1,0 +1,25 @@
+<html>
+<head>
+	<style>
+	#item {
+		display: block;
+		height:100px;
+		width:100px;
+		border:1px solid black;
+		background-color: yellow
+	}
+	</style>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script>
+	$(document).ready(function() {
+		$("#toggle_button").click(function(){
+		  $("#item").toggle();
+		});
+	})
+	</script>
+</head>
+<body>
+	<button id="toggle_button">Toggle Button</button>
+	<div id="item">Toggle Toggle Toggle</div>
+</body>
+</html>

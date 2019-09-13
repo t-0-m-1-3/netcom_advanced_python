@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <title>Sample To do</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/custom.css" rel="stylesheet">
+    <style>
+    #todo-form {
+      display:none;
+    }
+    </style>
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <h3 class="text-muted">Sample To do</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1>External Post FORM</h1>
+        <p class="lead">So here, we learn about RESTful APIs</p>
+        <p><button id="toggleTodoForm" class="btn btn-lg btn-success" href="#" role="button">Add To Do</button></p>
+        <div id="todo-form" role="form">
+
+          <!-- <script>alert("you suck");</script> -->
+
+
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" id="todo_title" placeholder="Enter Title">
+          </div>
+          <div class="form-group">
+            <label>Details</label>
+            <input type="text" class="form-control" id="todo_text" placeholder="Details">
+          </div>
+          <p><button id="addTodo" class="btn btn-lg">Submit</button></p>
+        </div>
+      </div>
+
+      <div class="row marketing">
+        <div id="todos" class="col-lg-12">
+
+
+
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>&copy; Company 2014</p>
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script>
+    function todoTemplate(title, body) {
+      var snippet = "<h2>"+title+"</h2>"+"<p>"+body+"</p><hr>";
+      return snippet;
+    }
+    function getTodos() {
+    	// simply get list of todos when called
+    	$.get("/api/todos", function(data, status) {
+    		
+    		var todos = data['todos'];
+        var html_string = "";
+        for(var i = 0; i<todos.length;i++) {
+          console.log("--------------------");
+          console.log(todos[i]);
+          html_string += todoTemplate(todos[i].text, todos[i].details);
+          console.log("--------------------");
+        }
+        $('#todos').html(html_string);
+    		
+    	})
+    }
+    function toggleForm() {
+      $("#toggleTodoForm").click(function() {
+        $("#todo-form").toggle();
+      })
+    }
+
+    function addTodo() {
+      var data = {
+        text: $('#todo_title').val(),
+        details:$('#todo_text').val()
+      }
+      $.post('http://localhost:8000/api/todos', data, function(result) {
+      //$.post('http://localhost:8080/api/todos', data, function(result) {
+        var item = todoTemplate(result.text, result.details);
+        $('#todos').prepend(item);
+        $("#todo-form").slideUp();
+      })
+    }
+
+    $(document).ready(function() {
+      toggleForm();
+    	getTodos();
+      $('#addTodo').click(addTodo);
+
+
+    })
+    </script>
+  </body>
+</html>

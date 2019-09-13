@@ -1,0 +1,30 @@
+<html>
+<head>
+	<style>
+	#item {
+		display: block;
+		height:100px;
+		width:100px;
+		border:1px solid black;
+		background-color: yellow
+	}
+	</style>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script>
+	$(document).ready(function() {
+		$("#hide").click(function(){
+		  $("#item").hide();
+		});
+
+		$("#show").click(function(){
+		  $("#item").show();
+		});
+	})
+	</script>
+</head>
+<body>
+	<button id="show">Show Me</button>
+	<button id="hide">Hide Me</button>
+	<div id="item">I am item</div>
+</body>
+</html>

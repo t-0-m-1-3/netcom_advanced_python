@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Mistrust Example</title>
+    <!-- Bootstrap core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    #username-error, #password-error {
+      color:red;
+    }
+    #success-msg, #fail-msg {
+      display:none;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <h3 class="text-muted">Mistrust Example</h3>
+      </div>
+      <div class="jumbotron">
+        <h1>Create User</h1>
+        <div id="success-msg" class="alert alert-success" role="alert">Success</div>
+        <div id="fail-msg" class="alert alert-danger" role="alert">Oops, something went wrong</div>
+        <div role="form">
+          <div class="form-group">
+            <label for="username">User Name </label><span id="username-error"></span>
+            <input type="text" class="form-control" id="username">
+          </div>
+          <div class="form-group">
+            <label for="password">Password </label><span id="password-error"></span>
+            <input type="password" class="form-control" id="password">
+          </div>
+          <button id="send" type="submit" class="btn btn-success" disabled>Submit</button>
+        </div>
+      </div>
+      <div class="footer">
+        <p>&copy; Company 2014</p>
+      </div>
+    </div> <!-- /container -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script>
+
+    var okUsername = null;
+    var okPassword = null;
+    function checkUserNameValues() {
+      var values = $('#username').val();
+      if (values.indexOf("s") < 0) {
+        okUsername = true;
+        $('#username-error').html("");
+
+      }
+      else {
+        okUsername = false;
+        $('#username-error').html("Not allowed to use character 's' in your password");
+
+      }
+
+      if (okUsername === true && okPassword === true) {
+        $('#send').prop('disabled', false);
+      }
+
+    }
+
+    function checkPasswordValues() {
+      var values = $('#password').val();
+      if (values.indexOf("a") < 0) {
+        okPassword = true;
+        $('#password-error').html("");
+      }
+      else {
+        okPassword = false;
+        $('#password-error').html("Not allowed to use character 'a' in your password");
+      }
+      if (okUsername === true && okPassword === true) {
+        $('#send').prop('disabled', false);
+      }
+    }
+
+    function formEnter() {
+      var a = $('#username').keyup(checkUserNameValues);
+      var b = $('#password').keyup(checkPasswordValues);
+    }
+
+    // here will do the form post and simple validation
+    function submitForm() {
+      // here I will check for "wrong" stuff
+      if (okUsername === true && okPassword === true) {
+        // go ahead and post to ajax backend
+        var username = $("#username").val();
+        var password = $("#password").val()
+        var request = $.ajax({
+          url: "/",
+          type: "POST",
+          data: { username : username, password:password },
+          dataType: "json"
+        });
+
+        request.done(function( response ) {
+          if(response.success == true) {
+            $( "#success-msg" ).show();
+          }
+          else {
+            $("#fail-msg").show();
+          }
+
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+          $("#fail-msg").show();
+        });
+
+      }
+      else {
+        alert("Please check your error messages");
+      }
+
+      return;
+    }
+    $('document').ready(function() {
+      // so here I will do the form posting.
+      formEnter();
+      $("#send").click(submitForm);
+    })
+    </script>
+  </body>
+</html>

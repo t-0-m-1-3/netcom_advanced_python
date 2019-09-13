@@ -1,0 +1,27 @@
+<html>
+<head>
+	<style>
+	#item {
+		display: none;
+		position: relative;
+		left:0px;
+		height:100px;
+		width:100px;
+		border:1px solid black;
+		background-color: yellow
+	}
+	</style>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script>
+	$(document).ready(function() {
+		$('#chain_button').click(function() {
+			$("#item").fadeIn('slow').fadeOut('slow').fadeIn('slow').fadeOut('slow').slideDown('slow').slideUp('slow');
+		})
+	})
+	</script>
+</head>
+<body>
+	<button id="chain_button">Chained Button</button>
+	<div id="item">Chain me</div>
+</body>
+</html>

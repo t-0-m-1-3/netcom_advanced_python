@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sample To do</title>
+    <!-- Bootstrap core CSS -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style>
+    #todo-form {
+      display:none;
+    }
+
+    /* Space out content a bit */
+    body {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    /* Everything but the jumbotron gets side spacing for mobile first views */
+    .header,
+    .marketing,
+    .footer {
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+
+    /* Custom page header */
+    .header {
+      border-bottom: 1px solid #e5e5e5;
+    }
+    /* Make the masthead heading the same height as the navigation */
+    .header h3 {
+      padding-bottom: 19px;
+      margin-top: 0;
+      margin-bottom: 0;
+      line-height: 40px;
+    }
+
+    /* Custom page footer */
+    .footer {
+      padding-top: 19px;
+      color: #777;
+      border-top: 1px solid #e5e5e5;
+    }
+
+    /* Customize container */
+    @media (min-width: 768px) {
+      .container {
+        max-width: 730px;
+      }
+    }
+    .container-narrow > hr {
+      margin: 30px 0;
+    }
+
+    /* Main marketing message and sign up button */
+    .jumbotron {
+      text-align: center;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .jumbotron .btn {
+      padding: 14px 24px;
+      font-size: 21px;
+    }
+
+    /* Supporting marketing content */
+    .marketing {
+      margin: 40px 0;
+    }
+    .marketing p + h4 {
+      margin-top: 28px;
+    }
+
+    /* Responsive: Portrait tablets and up */
+    @media screen and (min-width: 768px) {
+      /* Remove the padding we set earlier */
+      .header,
+      .marketing,
+      .footer {
+        padding-right: 0;
+        padding-left: 0;
+      }
+      /* Space out the masthead */
+      .header {
+        margin-bottom: 30px;
+      }
+      /* Remove the bottom border on the jumbotron for visual effect */
+      .jumbotron {
+        border-bottom: 0;
+      }
+    }
+    </style>
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <h3 class="text-muted">Sample To do Node.js Version</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1>Sample To Do</h1>
+        <p class="lead">So here, we learn about RESTful APIs</p>
+        <p><button id="toggleTodoForm" class="btn btn-lg btn-success" href="#" role="button">Add To Do</button></p>
+        <div id="todo-form" role="form">
+
+          <!-- <script>alert("you suck");</script> -->
+
+
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" id="todo_title" placeholder="Enter Title">
+          </div>
+          <div class="form-group">
+            <label>Details</label>
+            <input type="text" class="form-control" id="todo_text" placeholder="Details">
+          </div>
+          <p><button id="addTodo" class="btn btn-lg">Submit</button></p>
+        </div>
+      </div>
+
+      <div class="row marketing">
+        <div id="todos" class="col-lg-12">
+
+
+
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>&copy; Company 2014</p>
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script>
+
+
+
+    function todoTemplate(title, body, id) {
+
+      var snippet = "<div id=\"todo_"+id+"\"" + "<h2>"+title+"</h2>"+"<p>"+body+"</p>";
+      var deleteButton = "<a class='delete_item'  href='#' id="+id+">delete</a></div><hr>";
+      snippet += deleteButton;
+
+      return snippet;
+    }
+    function getTodos() {
+    	// simply get list of todos when called
+    	$.get("/api/todos", function(data, status) {
+
+    	var todos = data['todos'];
+        var htmlString = "";
+        for(var i = 0; i<todos.length;i++) {
+
+          htmlString += todoTemplate(todos[i].text, todos[i].details, todos[i]._id);
+          console.log("--------------------");
+        }
+        //$('#todos').html(html_string);
+        $('#todos').append(htmlString);
+
+    	})
+    }
+    function toggleForm() {
+      $("#toggleTodoForm").click(function() {
+        $("#todo-form").toggle();
+      })
+    }
+
+    function addTodo() {
+      var data = {
+        text: $('#todo_title').val(),
+        details:$('#todo_text').val()
+      }
+      $.post('/api/todos', data, function(result) {
+        var item = todoTemplate(result.text, result.details, result._id);
+        $('#todos').prepend(item);
+        $("#todo-form").slideUp();
+      })
+    }
+
+
+    $(document).ready(function() {
+      toggleForm();
+    	getTodos();
+      //deleteTodo();
+      $('#addTodo').click(addTodo);
+
+      $(document).on("click", '.delete_item', function(event) {
+        var id = event.currentTarget.id;
+        var data = {
+          id:id
+        }
+        $.post('/api/todos/'+id, data, function(result) {
+          var item_to_slide = "#todo_"+result._id;
+          $(item_to_slide).slideUp();
+        })
+      });
+
+    })
+    </script>
+  </body>
+</html>
