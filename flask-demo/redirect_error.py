@@ -8,7 +8,7 @@ def index():
 @app.route('/login',methods = ['POST', 'GET'])
 def login():
    if request.method == 'POST':
-      if request.form['username'] == 'admin' :
+      if request.form['nm'] == 'admin' :
          return redirect(url_for('success'))
       else:
          abort(401)

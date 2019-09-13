@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -12,11 +13,9 @@ def index():
 def setcookie():
    if request.method == 'POST':
        user = request.form['nm']
-
        resp = make_response(render_template('readcookie.html'))
        resp.set_cookie('userID', user)
-
-   return resp
+       return resp
 
 # ‘readcookie.html’ contains a hyperlink to another view function 
 # getcookie(), which reads back and displays the cookie value in browser.

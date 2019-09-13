@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, flash
 from forms import ContactForm
+
 app = Flask(__name__)
 app.secret_key = 'development key'
 
